@@ -3,9 +3,17 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const { URLDB } = require('./config/key');
+const bodyParser = require('body-parser');
+const passport = require('passport');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
+
+//Middlewares
+app.use( bodyParser.urlencoded({ extended: false }) );
+app.use( bodyParser.json() );
+app.use( passport.initialize() )
+require('./config/passport')( passport ) //passport config
 
 // Routes import
 const user = require('./routes/api/user');
